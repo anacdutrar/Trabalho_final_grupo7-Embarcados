@@ -1,0 +1,9 @@
+.gradle/
+**/build/
+local.properties
+.idea/
+*.iml
+captures/
+app/src/main/assets/wisdm_har_int8.tflite
+notebook/.ipynb_checkpoints/
+
