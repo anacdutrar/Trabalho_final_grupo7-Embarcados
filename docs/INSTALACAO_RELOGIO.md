@@ -27,6 +27,28 @@ Não renomeie o arquivo e não copie um modelo float no lugar do `int8`.
 
 No terminal do Android Studio, na raiz `wearos-app`:
 
+### Ubuntu / Linux
+
+Configure o Android SDK e o JDK:
+
+    export ANDROID_HOME="$HOME/AndroidDev/sdk"
+    export JAVA_HOME="$HOME/AndroidDev/apps/android-studio-rabbit1-linux/android-studio/jbr"
+    export PATH="$JAVA_HOME/bin:$PATH"
+
+Execute os testes e a compilação:
+
+    ./gradlew testDebugUnitTest
+    ./gradlew assembleDebug
+
+Para conectar e instalar no relógio:
+
+    "$ANDROID_HOME/platform-tools/adb" pair IP:PORTA_PAREAMENTO
+    "$ANDROID_HOME/platform-tools/adb" connect IP:PORTA_CONEXAO
+    "$ANDROID_HOME/platform-tools/adb" devices
+    "$ANDROID_HOME/platform-tools/adb" install -r app/build/outputs/apk/debug/app-debug.apk
+
+Adapte os caminhos e endereços ao seu ambiente.
+
 ### Windows
 
 ```powershell

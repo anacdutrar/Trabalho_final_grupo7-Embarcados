@@ -6,6 +6,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -33,13 +34,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+        )
+
         setContent {
             AccelerometerScreen()
         }
     }
 }
 
-private fun interpolateAt(
+internal fun interpolateAt(
     samples: ArrayDeque<Pair<Long, FloatArray>>,
     timestamp: Long
 ): FloatArray? {
@@ -104,7 +109,7 @@ private fun buildWindow(
     return window
 }
 
-private fun quantizeWindow(
+internal fun quantizeWindow(
     window: Array<FloatArray>,
     scale: Float,
     zeroPoint: Int
