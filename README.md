@@ -141,3 +141,129 @@ Foram comparados:
 
 
 
+A CNN profunda apresentou o melhor resultado absoluto:
+
+| Métrica | Resultado |
+|---|---:|
+| Accuracy INT8 | 84,67% |
+| Macro-F1 INT8 | 0,8452 |
+| Tamanho INT8 | ≈75,98 KB |
+
+A CNN compacta apresentou:
+
+| Métrica | Resultado |
+|---|---:|
+| Accuracy INT8 | 83,73% |
+| Macro-F1 INT8 | 0,8355 |
+| Tamanho INT8 | ≈10,70 KB |
+
+O ganho da CNN profunda sobre a compacta foi:
+
+- **+0,94 ponto percentual** de accuracy;
+- **+0,0097** de macro-F1.
+
+Por outro lado, a CNN profunda ficou aproximadamente **610% maior em tamanho INT8**.
+
+Por isso, a **CNN compacta continua sendo o modelo selecionado para o Galaxy Watch 6**, pois apresentou o melhor equilíbrio entre desempenho, tamanho e custo de inferência.
+
+A comparação também mostrou que simplesmente aumentar a quantidade de parâmetros não garante melhor desempenho: a CNN média e o MLP possuem muito mais parâmetros que a CNN compacta e apresentaram resultados inferiores.
+
+---
+
+## Comparação Accel-only × Accel + Gyro
+
+Também foi realizado um experimento controlado utilizando apenas o acelerômetro.
+
+| Modelo | Entrada | Accuracy INT8 | Macro-F1 INT8 |
+|---|---|---:|---:|
+| Accel-only | `100 × 3` | 72,07% | 0,7185 |
+| **Accel + Gyro** | `100 × 6` | **83,73%** | **0,8355** |
+
+O uso conjunto dos dois sensores proporcionou aproximadamente:
+
+- **+11,66 pontos percentuais** de accuracy;
+- **+0,1170** de macro-F1.
+
+Esse resultado justifica a manutenção dos seis canais no modelo final.
+
+---
+
+## Comparação TFLite FP32 × INT8
+
+O modelo principal também foi avaliado antes e depois da quantização.
+
+### Resultados da CNN compacta
+
+| Métrica | TFLite FP32 | TFLite INT8 |
+|---|---:|---:|
+| Accuracy | 83,98% | 83,73% |
+| Tamanho | ≈14,66 KB | ≈10,70 KB |
+
+A variação foi de aproximadamente:
+
+- **-0,25 ponto percentual** de accuracy.
+
+O tamanho passou de aproximadamente:
+
+**14,66 KB → 10,70 KB**
+
+A quantização preservou praticamente todo o desempenho da CNN compacta.
+
+Na CNN profunda, a execução apresentou uma pequena melhora numérica após a quantização. Esse resultado é tratado como variação experimental e não como evidência de que a quantização necessariamente melhora o desempenho de modelos.
+
+---
+
+## Benchmark comparativo
+
+Também foi executado um benchmark relativo das arquiteturas em CPU no Google Colab.
+
+Os resultados mostraram aumento do custo de inferência conforme a arquitetura se torna mais profunda.
+
+Esse benchmark é utilizado apenas para comparar os modelos sob o mesmo ambiente.
+
+**Importante:** os tempos medidos no Colab não representam a latência real do Samsung Galaxy Watch6 Classic. A medição definitiva deve ser realizada no dispositivo.
+
+---
+
+## Pacote experimental das arquiteturas
+
+A comparação dos modelos gera um arquivo separado:
+
+**`architecture_comparison.zip`**
+
+Esse pacote contém:
+
+- Modelos candidatos TFLite FP32;
+- Modelos candidatos TFLite INT8;
+- Tabela de comparação;
+- Resultados de benchmark;
+- Gráficos de accuracy;
+- Comparação de tamanho FP32 × INT8;
+- Gráfico de trade-off entre tamanho e desempenho.
+
+O arquivo experimental **não substitui** o pacote principal:
+
+**`watch_har_export.zip`**
+
+O modelo utilizado pelo aplicativo continua sendo:
+
+`wearos-app/app/src/main/assets/wisdm_har_int8.tflite`
+
+---
+
+## Justificativa final da escolha do modelo
+
+A arquitetura profunda alcançou a maior accuracy absoluta, porém apresentou um aumento de aproximadamente **610% no tamanho INT8** para um ganho inferior a 1 ponto percentual de accuracy.
+
+A CNN compacta:
+
+- Possui apenas **2.157 parâmetros**;
+- Alcançou **83,73% de accuracy INT8**;
+- Obteve **macro-F1 de 0,8355**;
+- Ocupa aproximadamente **10,70 KB**;
+- Ficou apenas **0,94 ponto percentual** abaixo da CNN profunda;
+- Apresenta menor custo de inferência no benchmark comparativo.
+
+Dessa forma, a **CNN 1D compacta** foi mantida como o melhor compromisso para o cenário de **IA embarcada no Galaxy Watch 6**.
+  
+
