@@ -1,0 +1,5 @@
+A,Walking
+B,Jogging
+C,Stairs
+G,Brushing Teeth
+R,Clapping

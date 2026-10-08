@@ -18,7 +18,7 @@ O modelo é executado localmente no Galaxy Watch 6 por um aplicativo Wear OS.
 
 ## Fluxo de trabalho
 
-1. Envie `notebook/WISDM_Watch_HAR.ipynb` ao Google Colab.
+1. Envie `notebook/WISDM_Watch_HAR_FINAL_GalaxyWatch.ipynb` ao Google Colab.
 2. Execute as células em ordem, sem pular os gates de validação.
 3. Revise macro-F1, métricas por classe, matriz de confusão e o aviso final.
 4. Baixe `watch_har_export.zip` e preserve o ZIP como evidência da execução.
@@ -55,8 +55,22 @@ são opcionais e não substituem o toolchain Android.
 - normalização: incorporada ao grafo pelo notebook;
 - lacuna máxima interpolável: 250 ms.
 
-O app lê as escalas e pontos zero diretamente dos tensores TFLite. Não é
-necessário transcrever constantes de quantização.
+O aplicativo utiliza os parâmetros de quantização definidos no código Kotlin, que devem coincidir com os valores de `model_contract.json`.
+
+## Implementação Wear OS
+
+O aplicativo foi desenvolvido em Kotlin, utilizando Jetpack Compose.
+
+- Dispositivo testado: Samsung Galaxy Watch6 Classic.
+- Inferência local com LiteRT `CompiledModel` na CPU.
+- Leitura do acelerômetro e giroscópio com `SensorManager`.
+- Reamostragem dos sensores para 20 Hz.
+- Classificação a cada segundo, utilizando janelas de 5 segundos.
+- Exibição da atividade identificada e dos valores dos sensores.
+- Tela mantida acesa durante a utilização do aplicativo.
+
+O aplicativo utiliza o modelo `wisdm_har_int8.tflite` exportado
+pelo treinamento em Python.
 
 ## Limitação científica
 

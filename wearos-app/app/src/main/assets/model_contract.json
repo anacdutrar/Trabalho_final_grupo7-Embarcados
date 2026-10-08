@@ -1,0 +1,62 @@
+{
+  "model_file": "wisdm_har_int8.tflite",
+  "input_shape": [
+    1,
+    100,
+    6
+  ],
+  "input_dtype": "int8",
+  "input_quantization": {
+    "scale": 0.5244014859199524,
+    "zero_point": 20
+  },
+  "channels": [
+    "accel_x",
+    "accel_y",
+    "accel_z",
+    "gyro_x",
+    "gyro_y",
+    "gyro_z"
+  ],
+  "sample_rate_hz": 20,
+  "window_seconds": 5,
+  "hop_seconds": 1,
+  "max_interpolation_gap_ms": 250,
+  "output_shape": [
+    1,
+    5
+  ],
+  "output_dtype": "int8",
+  "output_quantization": {
+    "scale": 0.00390625,
+    "zero_point": -128
+  },
+  "labels": [
+    {
+      "index": 0,
+      "code": "A",
+      "name": "Walking"
+    },
+    {
+      "index": 1,
+      "code": "B",
+      "name": "Jogging"
+    },
+    {
+      "index": 2,
+      "code": "C",
+      "name": "Stairs"
+    },
+    {
+      "index": 3,
+      "code": "G",
+      "name": "Brushing Teeth"
+    },
+    {
+      "index": 4,
+      "code": "R",
+      "name": "Clapping"
+    }
+  ],
+  "normalization_embedded_in_model": true
+}
