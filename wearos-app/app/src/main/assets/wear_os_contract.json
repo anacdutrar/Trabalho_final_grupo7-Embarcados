@@ -1,0 +1,49 @@
+{
+  "target_device": "Galaxy Watch 6",
+  "sample_rate_hz": 20,
+  "sample_period_ms": 50,
+  "window_seconds": 5,
+  "window_samples": 100,
+  "hop_seconds": 1,
+  "models": {
+    "accel_gyro": {
+      "file": "wisdm_har_int8.tflite",
+      "channels": [
+        "accel_x",
+        "accel_y",
+        "accel_z",
+        "gyro_x",
+        "gyro_y",
+        "gyro_z"
+      ],
+      "input_shape": [
+        1,
+        100,
+        6
+      ]
+    },
+    "accel_only": {
+      "file": "wisdm_har_accel_int8.tflite",
+      "channels": [
+        "accel_x",
+        "accel_y",
+        "accel_z"
+      ],
+      "input_shape": [
+        1,
+        100,
+        3
+      ]
+    }
+  },
+  "sensor_units": {
+    "accelerometer": "m/s^2",
+    "gyroscope": "rad/s"
+  },
+  "runtime_notes": [
+    "Preservar timestamps dos eventos de sensor.",
+    "No modelo de seis canais, alinhar accel e gyro na mesma grade temporal.",
+    "Executar nova infer\u00eancia a cada HOP_SECONDS ap\u00f3s a primeira janela completa.",
+    "Registrar testes reais no Galaxy Watch 6 separadamente das m\u00e9tricas WISDM."
+  ]
+}

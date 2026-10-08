@@ -51,10 +51,23 @@ especialmente confusões entre caminhada e escadas.
 
 ## 7. Aplicativo embarcado
 
-O app Wear OS usa `SensorManager` e `SensorEventListener`, solicita os dois
-sensores a 20 Hz, reamostra uma janela de 100 × 6, quantiza conforme o tensor,
-executa LiteRT localmente e suaviza as três últimas previsões. Não depende de
-rede, celular ou servidor para inferência.
+O aplicativo foi desenvolvido em Kotlin, utilizando Jetpack Compose
+para a interface gráfica.
+
+A coleta de dados utiliza SensorManager e SensorEventListener para
+acessar o acelerômetro e o giroscópio do Galaxy Watch6 Classic.
+
+Os dados são reamostrados para 20 Hz e organizados em janelas de
+100 amostras e seis canais, correspondentes a cinco segundos.
+
+A inferência é executada localmente por meio do LiteRT CompiledModel,
+utilizando a CPU do relógio.
+
+O aplicativo apresenta a atividade identificada e os valores dos
+sensores em tempo real, realizando classificações aproximadamente
+a cada segundo.
+
+Não é necessária conexão com a internet para realizar a inferência.
 
 ## 8. Teste no Galaxy Watch 6
 

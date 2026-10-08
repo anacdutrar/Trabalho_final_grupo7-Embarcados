@@ -59,17 +59,23 @@ adb install -r app\build\outputs\apk\debug\app-debug.apk
 
 A porta de conexão geralmente é diferente da porta de pareamento.
 
-## 5. Teste físico
+## 5. Teste físico no Galaxy Watch6 Classic
 
-1. Coloque o relógio no pulso dominante, como no WISDM.
-2. Abra Watch HAR e pressione Iniciar.
-3. Aguarde cinco segundos para preencher a primeira janela.
-4. Execute cada atividade por pelo menos 20 segundos.
-5. Registre classe mostrada, confiança, estabilidade e eventuais erros.
-6. Repita ao menos três vezes por atividade.
+1. Coloque o relógio no pulso dominante.
+2. Abra o aplicativo WISDM Watch.
+3. Aguarde aproximadamente cinco segundos para preencher a primeira janela.
+4. Observe a atividade identificada, exibida em verde na parte superior.
+5. Execute cada uma das cinco atividades durante pelo menos 20 segundos.
+6. Registre a atividade realizada e a classificação apresentada.
+7. Repita os testes pelo menos três vezes para cada atividade.
 
-O MVP mantém a tela ativa durante a coleta e para os sensores quando o app sai
-da tela. Ele não é um monitor contínuo em segundo plano.
+O aplicativo realiza inferências locais aproximadamente a cada segundo.
 
-Referência oficial: https://developer.android.com/training/wearables/get-started/debug-wifi
+A tela permanece acesa enquanto o aplicativo estiver visível, facilitando
+os testes. Essa configuração aumenta o consumo de bateria.
 
+O reconhecimento utiliza acelerômetro e giroscópio, sem necessidade
+de conexão com a internet durante a inferência.
+
+Referência oficial:
+https://developer.android.com/training/wearables/get-started/debug-wifi
